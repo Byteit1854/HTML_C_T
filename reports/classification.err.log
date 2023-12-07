@@ -1,0 +1,58 @@
+Traceback (most recent call last):
+  File "C:\Users\Byte\AppData\Local\Programs\Python\Python312\Lib\site-packages\jupyter_cache\executors\utils.py", line 58, in single_nb_execution
+    executenb(
+  File "C:\Users\Byte\AppData\Local\Programs\Python\Python312\Lib\site-packages\nbclient\client.py", line 1305, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Byte\AppData\Local\Programs\Python\Python312\Lib\site-packages\jupyter_core\utils\__init__.py", line 173, in wrapped
+    return loop.run_until_complete(inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Byte\AppData\Local\Programs\Python\Python312\Lib\asyncio\base_events.py", line 664, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\Byte\AppData\Local\Programs\Python\Python312\Lib\site-packages\nbclient\client.py", line 705, in async_execute
+    await self.async_execute_cell(
+  File "C:\Users\Byte\AppData\Local\Programs\Python\Python312\Lib\site-packages\nbclient\client.py", line 1058, in async_execute_cell
+    await self._check_raise_for_error(cell, cell_index, exec_reply)
+  File "C:\Users\Byte\AppData\Local\Programs\Python\Python312\Lib\site-packages\nbclient\client.py", line 914, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+from jupyterquiz import display_quiz
+import json
+from base64 import b64decode
+import re
+
+encoded_quiz1 = '<span style="display:none" id="example">W3sicXVlc3Rpb24iOiAiV2hhdCBpcyBhIGxlYWYgbm9kZSBpbiBhIGNsYXNzaWZpY2F0aW9uIHRyZWU/IiwgInR5cGUiOiAibXVsdGlwbGVfY2hvaWNlIiwgImFuc3dlcnMiOiBbeyJjb2RlIjogIlRoZSB0b3Btb3N0IG5vZGUiLCAiY29ycmVjdCI6IGZhbHNlfSwgeyJjb2RlIjogIkEgbm9kZSB3aXRoIG5vIGNoaWxkcmVuIiwgImNvcnJlY3QiOiB0cnVlfSwgeyJjb2RlIjogIlRoZSBub2RlIHdpdGggdGhlIGhpZ2hlc3QgR2luaSBpbXB1cml0eSIsICJjb3JyZWN0IjogZmFsc2V9LCB7ImNvZGUiOiAiQSBub2RlIHdpdGggdGhlIGxvd2VzdCBpbmZvcm1hdGlvbiBnYWluIiwgImNvcnJlY3QiOiBmYWxzZX1dfV0=</span>'
+encoded_quiz2 = '<span style="display:none" id="example1">W3sicXVlc3Rpb24iOiAiV2hhdCBpcyBHaW5pIGltcHVyaXR5IHVzZWQgZm9yIGluIHRoZSBjb250ZXh0IG9mIGNsYXNzaWZpY2F0aW9uIHRyZWVzPyIsICJ0eXBlIjogIm11bHRpcGxlX2Nob2ljZSIsICJhbnN3ZXJzIjogW3siY29kZSI6ICJUbyBtZWFzdXJlIHRoZSBhdmVyYWdlIHNxdWFyZWQgZGlmZmVyZW5jZSBiZXR3ZWVuIHByZWRpY3RlZCBhbmQgYWN0dWFsIHZhbHVlcyIsICJjb3JyZWN0IjogZmFsc2V9LCB7ImNvZGUiOiAiVG8gbWVhc3VyZSB0aGUgaW1wdXJpdHkgb2YgYSBzZXQgb2YgbGFiZWxzIiwgImNvcnJlY3QiOiB0cnVlfSwgeyJjb2RlIjogIlRvIGNhbGN1bGF0ZSB0aGUgZW50cm9weSBvZiBhIGRhdGFzZXQiLCAiY29ycmVjdCI6IGZhbHNlfSwgeyJjb2RlIjogIlRvIGRldGVybWluZSB0aGUgbnVtYmVyIG9mIGZlYXR1cmVzIGluIGEgZGF0YXNldCIsICJjb3JyZWN0IjogZmFsc2V9XX1d</span>'
+encoded_quiz3 = '<span style="display:none" id="q_demo_seq">W3sicXVlc3Rpb24iOiAiSWYgYSBkZWNpc2lvbiB0cmVlIGhhcyBhIHRvdGFsIG9mIDUgbGVhZiBub2RlcyBhbmQgZWFjaCBsZWFmIG5vZGUgY29ycmVzcG9uZHMgdG8gYSB1bmlxdWUgY2xhc3MsIHdoYXQgaXMgdGhlIG1heGltdW0gbnVtYmVyIG9mIGNsYXNzZXMgdGhlIHRyZWUgY2FuIHByZWRpY3Q/IiwgInR5cGUiOiAibnVtZXJpYyIsICJhbnN3ZXJzIjogW3sidHlwZSI6ICJ2YWx1ZSIsICJ2YWx1ZSI6IDUsICJjb3JyZWN0IjogdHJ1ZSwgImZlZWRiYWNrIjogIlRoZSBtYXhpbXVtIG51bWJlciBvZiBjbGFzc2VzIGEgdHJlZSB3aXRoIG4gbGVhZiBub2RlcyBjYW4gcHJlZGljdCBpcyBuLiBUaGVyZWZvcmUsIHRoZSBhbnN3ZXIgaXMgNS4ifSwgeyJ0eXBlIjogInZhbHVlIiwgInZhbHVlIjogNCwgImNvcnJlY3QiOiBmYWxzZSwgImZlZWRiYWNrIjogIk5vdCBxdWlldCBsaWtlIHRoYXQgdHJ5IGFnYWluISJ9LCB7InR5cGUiOiAidmFsdWUiLCAidmFsdWUiOiA2LCAiY29ycmVjdCI6IGZhbHNlLCAiZmVlZGJhY2siOiAiTm90IHF1aWV0IGxpa2UgdGhhdCB0cnkgYWdhaW4hIn0sIHsidHlwZSI6ICJkZWZhdWx0IiwgImZlZWRiYWNrIjogIk5vIFdheSEgVHJ5IGFnYWluISJ9XX1d</span>'
+encoded_quiz4 = '<span style="display:none" id="q_demo_seq1">W3sicXVlc3Rpb24iOiAiQSBkZWNpc2lvbiB0cmVlIGlzIHRyYWluZWQgb24gYSBkYXRhc2V0IHdpdGggMTAwMCBzYW1wbGVzLiBBZnRlciB0cmFpbmluZywgaXQgaGFzIDggbGVhZiBub2Rlcy4gV2hhdCBpcyB0aGUgbWF4aW11bSBkZXB0aCBvZiB0aGlzIGRlY2lzaW9uIHRyZWU/IiwgInR5cGUiOiAibnVtZXJpYyIsICJhbnN3ZXJzIjogW3sidHlwZSI6ICJ2YWx1ZSIsICJ2YWx1ZSI6IDMsICJjb3JyZWN0IjogdHJ1ZSwgImZlZWRiYWNrIjogIkluIGEgYmluYXJ5IHRyZWUsIHRoZSBtYXhpbXVtIGRlcHRoIGlzIHRoZSBudW1iZXIgb2YgbGV2ZWxzLCB3aGljaCBpcyBsb2cyKE51bWJlciBvZiBMZWFmIE5vZGUpLiJ9LCB7InR5cGUiOiAidmFsdWUiLCAidmFsdWUiOiA0LCAiY29ycmVjdCI6IGZhbHNlLCAiZmVlZGJhY2siOiAiTm90IHF1aWV0IGxpa2UgdGhhdCB0cnkgYWdhaW4hIn0sIHsidHlwZSI6ICJ2YWx1ZSIsICJ2YWx1ZSI6IDUsICJjb3JyZWN0IjogZmFsc2UsICJmZWVkYmFjayI6ICJOb3QgcXVpZXQgbGlrZSB0aGF0IHRyeSBhZ2FpbiEifSwgeyJ0eXBlIjogImRlZmF1bHQiLCAiZmVlZGJhY2siOiAiTm8gV2F5ISBUcnkgYWdhaW4hIn1dfV0=</span>'
+encoded_quiz5 = '<span style="display:none" id="q_e_trillions12">W3sicXVlc3Rpb24iOiAiU3VwcG9zZSB5b3UgaGF2ZSBhIGRhdGFzZXQgd2l0aCA1MDAgc2FtcGxlcyBhbmQgdHdvIGNsYXNzZXMgKDAgYW5kIDEpLiBJZiAzMDAgc2FtcGxlcyBiZWxvbmcgdG8gY2xhc3MgMCBhbmQgMjAwIHNhbXBsZXMgYmVsb25nIHRvIGNsYXNzIDEsIHdoYXQgaXMgdGhlIEdpbmkgaW1wdXJpdHkgb2YgdGhlIGVudGlyZSBkYXRhc2V0PyIsICJ0eXBlIjogIm1hbnlfY2hvaWNlIiwgImFuc3dlcnMiOiBbeyJhbnN3ZXIiOiAiMC4zMiIsICJjb3JyZWN0IjogZmFsc2UsICJmZWVkYmFjayI6ICJOb3QgZW5vdWdoISJ9LCB7ImFuc3dlciI6ICIwLjIyIiwgImNvcnJlY3QiOiBmYWxzZSwgImZlZWRiYWNrIjogIk5vdCBlbm91Z2ghIn0sIHsiYW5zd2VyIjogIjAuNDQiLCAiY29ycmVjdCI6IHRydWUsICJmZWVkYmFjayI6ICJZZXAgdGhhdCdzIHJpZ2h0In0sIHsiYW5zd2VyIjogIjExMDAwMC8yNTAwMDAiLCAiY29ycmVjdCI6IHRydWUsICJmZWVkYmFjayI6ICJZZXAgdGhhdCdzIHJpZ2h0In1dfV0=</span>'
+
+
+
+encoded_quizzes = [encoded_quiz1, encoded_quiz2, encoded_quiz3, encoded_quiz4, encoded_quiz5]
+
+quiz_results = []
+
+for encoded_quiz in encoded_quizzes:
+    matches = re.search(r'id="[^"]*">(.*?)</span>', encoded_quiz)
+    if matches:
+        encrypted_value = matches.group(1)
+
+        decoded_quiz = b64decode(encrypted_value).decode('utf-8')
+        quiz_results.append(json.loads(decoded_quiz))
+
+quiz_result1, quiz_result2, quiz_result3, quiz_result4, quiz_result5 = quiz_results
+------------------
+
+
+[1;31m---------------------------------------------------------------------------[0m
+[1;31mModuleNotFoundError[0m                       Traceback (most recent call last)
+Cell [1;32mIn[4], line 1[0m
+[1;32m----> 1[0m [38;5;28;01mfrom[39;00m [38;5;21;01mjupyterquiz[39;00m [38;5;28;01mimport[39;00m display_quiz
+[0;32m      2[0m [38;5;28;01mimport[39;00m [38;5;21;01mjson[39;00m
+[0;32m      3[0m [38;5;28;01mfrom[39;00m [38;5;21;01mbase64[39;00m [38;5;28;01mimport[39;00m b64decode
+
+[1;31mModuleNotFoundError[0m: No module named 'jupyterquiz'
+
